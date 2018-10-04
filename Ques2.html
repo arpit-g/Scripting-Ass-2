@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Comic</title>
+		<script>
+			var comic_number=1;
+			var part1 = "https://xkcd.com/";
+			var part2 = "/info.0.json";
+			function random() {
+				comic_number = Math.floor(Math.random() * 500) + 1;
+			    var xmlHttp = new XMLHttpRequest();
+			    var url = part1 + comic_number + part2;
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);			    	
+			    	var image = jsonResponse.img;
+			    	var title = jsonResponse.title;
+			    	var image_tag = '<img style="margin-top: 20px;width: 600px;height: 500px;" src="' + image + '">';
+			    	document.getElementById("image_div").innerHTML = image_tag;
+			    	document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function next() {
+			    var xmlHttp = new XMLHttpRequest();
+			    comic_number++;
+			    var url = part1 + comic_number + part2;
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);			    	
+			    	var image = jsonResponse.img;
+			    	var title = jsonResponse.title;
+			    	var image_tag = '<img style="margin-top: 20px;width: 600px;height: 500px;" src="' + image + '">';
+			    	var title_tag = '<h2>' + title + '</h2>';
+			    	document.getElementById("image_div").innerHTML = image_tag;
+			    	document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function previous() {
+			    var xmlHttp = new XMLHttpRequest();
+			    if(comic_number-1>=0) comic_number--;
+			    var url = part1 + comic_number + part2;
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);			    	
+			    	var image = jsonResponse.img;
+			    	var title = jsonResponse.title;
+			    	var image_tag = '<img style="margin-top: 20px;width: 600px;height: 500px;" src="' + image + '">';
+			    	var title_tag = '<h2>' + title + '</h2>';
+			    	document.getElementById("image_div").innerHTML = image_tag;
+			    	document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function first() {
+			    var xmlHttp = new XMLHttpRequest();
+			    xmlHttp.open( "GET", "https://xkcd.com/1/info.0.json" , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);			    	
+			    	var image = jsonResponse.img;
+			    	var title = jsonResponse.title;
+			    	var image_tag = '<img style="margin-top: 20px;width: 600px;height: 500px;" src="' + image + '">';
+			    	var title_tag = '<h2>' + title + '</h2>';
+			    	document.getElementById("image_div").innerHTML = image_tag;
+			    	document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function last() {
+			    var xmlHttp = new XMLHttpRequest();
+			    xmlHttp.open( "GET", "https://xkcd.com/info.0.json" , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);			    	
+			    	var image = jsonResponse.img;
+			    	var title = jsonResponse.title;
+			    	var image_tag = '<img style="margin-top: 20px;width: 600px;height: 500px;" src="' + image + '">';
+			    	var title_tag = '<h2>' + title + '</h2>';
+			    	document.getElementById("image_div").innerHTML = image_tag;
+			    	document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="title_div" style="margin-left: 30%">Barrel - Part 1</div>
+		<div style="margin-top: 20px;margin-left: 30%">
+			<button type="button" onclick="first()">|<</button>
+			<button type="button" onclick="previous()">< Prev</button>
+			<button type="button" onclick="random()">Random</button>
+			<button type="button" onclick="next()">> Next</button>
+			<button type="button" onclick="last()">>|</button>
+		</div>
+		<div id="image_div" style="margin-left: 20%">
+			<img id="image_disp" style="margin-top: 20px;width: 600px;height: 500px;" src="https://imgs.xkcd.com/comics/barrel_cropped_(1).jpg">
+		</div>
+		<div style="margin-top: 20px;margin-left: 30%">
+			<button type="button" onclick="first()">|<</button>
+			<button type="button" onclick="previous()">< Prev</button>
+			<button type="button" onclick="random()">Random</button>
+			<button type="button" onclick="next()">> Next</button>
+			<button type="button" onclick="last()">>|</button>
+		</div>
+	</body>
+</html>

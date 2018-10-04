@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Try It Yourself!</title>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<style>
+			#wrapper {
+				position: relative;
+				overflow: hidden;
+			}
+			/*#input {
+				width: 500px;
+				height: 500px;
+				border: 1px solid;
+				overflow-y: scroll;
+				margin-left: 10%;
+				float: left;
+			}*/
+			/*#output {
+				float: left;
+				width: 500px;
+				height: 500px;
+				border: 1px solid;
+				margin-left: 5%;
+			}*/
+		</style>
+		<script>
+		    $(document).ready(function() {
+   				$("#input_clear").click(function(e) {
+        			e.preventDefault();
+        			$("#inputBox").val('');
+    			});
+    			$("#output_clear").click(function(e) {
+        			e.preventDefault();
+        			var myFrame = $("#outputFrame").contents().find('body');
+		        	var textareaValue = "";
+		        	myFrame.html(textareaValue);
+    			});
+    			$("#execute").click(function(e) {
+        			e.preventDefault();
+        			var myFrame = $("#outputFrame").contents().find('body');
+		        	var textareaValue = $("textarea").val();
+		        	myFrame.html(textareaValue);
+    			});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="wrapper">
+			<textarea id="inputBox" style="float: left;width: 500px;height: 500px;border: 1px solid;margin-left: 10%;overflow-y: scroll;"></textarea> 
+			<iframe id="outputFrame" style="float: left;width: 500px;height: 500px;border: 1px solid;margin-left: 5%;">
+  				<p>Your browser does not support iframes.</p>
+			</iframe>
+		</div>
+		<button type="button" id="execute">Run</button>
+		<button type="button" id="input_clear"">Clear</button>
+		<button type="button" id="output_clear"">Clear</button>
+	</body>
+</html>
+
