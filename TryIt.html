@@ -6,7 +6,17 @@
 		<style>
 			#wrapper {
 				position: relative;
-				overflow: hidden;
+				overflow: hidden;				
+			}
+			.button {
+				width: 75px;
+			    height: 40px;
+			    background: #2196F3;
+			    color: white;
+			    font-size: 17px;
+			    border: 1px solid grey;
+			    margin-top: 10px;
+			    cursor: pointer;
 			}
 			/*#input {
 				width: 500px;
@@ -43,18 +53,24 @@
 		        	myFrame.html(textareaValue);
     			});
 			});
+			function execute() {
+				var myFrame = $("#outputFrame").contents().find('body');
+		        var textareaValue = $("textarea").val();
+		        myFrame.html(textareaValue);
+			}
 		</script>
 	</head>
-	<body>
+	<body style="background-color: #f5f5f0;">
+		<h2 style="font-size: 30px;font-family: monospace;font-variant: small-caps;padding-top: 10px;" align="center">Try It Yourself!</h2>
 		<div id="wrapper">
-			<textarea id="inputBox" style="float: left;width: 500px;height: 500px;border: 1px solid;margin-left: 10%;overflow-y: scroll;"></textarea> 
-			<iframe id="outputFrame" style="float: left;width: 500px;height: 500px;border: 1px solid;margin-left: 5%;">
+			<textarea id="inputBox" onkeyup="execute()" style="padding-left: 5px;padding-top: 5px; float: left;width: 500px;height: 500px;border: 1px solid;margin-left: 8%;overflow-y: scroll;"></textarea> 
+			<iframe id="outputFrame" style="background-color: #ffffff;overflow-y: scroll;float: left;width: 500px;height: 500px;border: 1px solid;margin-left: 5%;">
   				<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
-		<button type="button" id="execute">Run</button>
-		<button type="button" id="input_clear"">Clear</button>
-		<button type="button" id="output_clear"">Clear</button>
+		<button type="button" id="execute" class="button" style="margin-left: 250px;">Run</button>
+		<button type="button" id="input_clear" class="button" style="margin-left: 50px;">Clear</button>
+		<button type="button" id="output_clear" class="button" style="margin-left: 420px;">Clear</button>
 	</body>
 </html>
 

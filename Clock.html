@@ -58,7 +58,7 @@
 		<p id="demo"></p>
 
 		<canvas id="clockCanvas" width="500" height="500"
-		style="border:1px solid #d3d3d3;background-color: #111" >
+		style="border:1px solid #d3d3d3;background-color: #111;border-radius: 15%" >
 			Your browser does not support the canvas element.
 		</canvas>
 
@@ -69,6 +69,20 @@
 				context.closePath();
 			}
 
+			function draw_line(from_x,from_y,theta) {
+				context.beginPath();
+				context.lineWidth=5;
+				// from_x = center_x-20*Math.cos(Math.PI * theta / 180.0);
+				// from_y = center_y-20*Math.sin(Math.PI * theta / 180.0);
+				context.moveTo(from_x,from_y);
+				to_x = from_x + 25*Math.cos(Math.PI * theta / 180.0);
+				to_y = from_y + 25*Math.sin(Math.PI * theta / 180.0);
+				context.lineTo(to_x,to_y);				
+				context.strokeStyle="#111";
+				context.stroke();
+				context.closePath();
+			}
+
 			function clock() {
 				draw_cir(250,250,200);
 				context.fillStyle="#e1a722";
@@ -76,7 +90,12 @@
 
 				draw_cir(250,250,180);
 				context.fillStyle="#fdfcfb";
-				context.fill();				
+				context.fill();			
+
+				draw_line(250,85,270);	
+				draw_line(415,250,0);
+				draw_line(250,415,90);
+				draw_line(85,250,180);	
 			}
 
 			function draw_hour(theta,length) {
@@ -114,9 +133,9 @@
 			function draw_second(h_theta,m_theta,s_theta,length) {
 				clock();
 
-				draw_cir(250,250,50);
-				context.fillStyle="#e1a722";
-				context.fill();
+				// draw_cir(250,250,50);
+				// context.fillStyle="#e1a722";
+				// context.fill();
 				
 				draw_minute(h_theta,m_theta,120);
 
@@ -143,13 +162,20 @@
 
 			var date = new Date(); 			
 			
+			s_theta = date.getSeconds()*6;
+			m_theta = date.getMinutes()*6+date.getSeconds()*(1/10);
+			h_theta = date.getHours()*30+date.getSeconds()*(1/100);
+
 			var intr = setInterval(function() {
-				date = new Date(); 
-				document.getElementById("demo").innerHTML = date;
-				s_theta = date.getSeconds()*6;
-				m_theta = date.getMinutes()*6;
-				h_theta = date.getHours()*30;
+				// date = new Date(); 
+				// document.getElementById("demo").innerHTML = date;
+				// s_theta = date.getSeconds()*6;
+				// m_theta = date.getMinutes()*6;
+				// h_theta = date.getHours()*30;
 			    draw_second(h_theta+270,m_theta+270,s_theta+270,150);
+			    s_theta+=6;
+			    m_theta+=1/10;
+			    h_theta+=1/100;
 			    //console.log(now.toString().substr(16,8));
 			    // s_theta+=6;
 			    // //if (s_theta == 360) s_theta=0;//clearInterval(intr);

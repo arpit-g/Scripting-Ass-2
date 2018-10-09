@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The Song of Ice and Fire</title>
+		<style>
+			* {
+			    box-sizing: border-box;
+			}
+			div.search_bar {
+				width: 750px;
+				height: 50px;
+				/*border: 1px solid;*/
+				margin: 0 auto; 
+				margin-bottom: 5px;
+			}
+			div.display_block {
+				width: 750px;
+				height: 300px;
+				border: 1px solid;
+				margin: 0 auto; 
+				margin-top: 5px;
+			}
+			div.search_bar input {
+			    font-size: 17px;
+			    /*margin-top: 10px;*/
+			    /*margin-left: 5px;*/
+			    /*margin-bottom: 5px;*/
+			    border: 1px solid grey;
+			    float: left;
+			    width: 80%;
+			    height: 100%;
+			    background: #f1f1f1;
+			}
+			div.search_bar button {
+				float: left;
+				/*margin-top: 10px;*/
+			    /*margin-left: 5px;*/
+			    /*margin-bottom: 5px;*/
+			    width: 20%;
+			    height: 100%;
+			    background: #cc3300;
+			    color: white;
+			    font-size: 17px;
+			    border: 1px solid grey;
+			    /*border-left: none;*/
+			    cursor: pointer;
+			}
+			.bimage {
+				height: 585px;
+				background-image: url("got.jpg");
+				background-size: cover;
+				/*height: 100%;*/
+			}
+		</style>
+		<script>
+			function getDetailsByName() {
+				//comic_number = Math.floor(Math.random() * 500) + 1;
+				var name = document.getElementById('search_name').value
+			    var xmlHttp = new XMLHttpRequest();
+			    var url = "https://anapioficeandfire.com/api/characters?name="+name; 
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);
+			    	var n = jsonResponse[0].name;
+			    	if(n!="") {
+				    	var details_tag = '<p>You searched for <b>'+n+'</b> ';
+				    	if(jsonResponse[0].playedBy[0]!="") details_tag += 'played by <b>'+jsonResponse[0].playedBy[0]+'</b>.</p>';
+				    	// details_tag += 
+				    	details_tag += '<p>His/Her various titles are - </p>';
+				    	details_tag += '<ul>';
+				    	for(i=0;i<jsonResponse[0].titles.length;i++) details_tag += '<li>'+jsonResponse[0].titles[i]+'</li>'
+				    	details_tag += '</ul>';
+				    	details_tag += '<p>Also known as - </p>';
+				    	if(jsonResponse[0].aliases.length!=0) {
+					    	details_tag += '<ul>';
+					    	for(i=0;i<jsonResponse[0].aliases.length;i++) details_tag += '<li>'+jsonResponse[0].aliases[i]+'</li>'
+					    	details_tag += '</ul>';
+						}
+				    	// details_tag += '<p>Allegiances - </p>';
+				    	// details_tag += '<ul>';
+				    	// for(i=0;i<jsonResponse[0].allegiances.length;i++) {
+				    	// 	var alleg = nameHelper(jsonResponse[0].allegiances[i]);
+				    	// 	console.log(alleg);
+				    	// 	details_tag += '<li>'+nameHelper(jsonResponse[0].allegiances[i])+'</li>'
+				    	// }
+				    	// details_tag += '</ul>';
+				    }
+				    else details_tag = "No information found!";
+			    	document.getElementById("disp_div").innerHTML = details_tag;
+			    	//document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function getRandomCharacter() {
+				//comic_number = Math.floor(Math.random() * 500) + 1;
+				// var name = document.getElementById('search_name').value
+			    var xmlHttp = new XMLHttpRequest();
+			    character_number = Math.floor(Math.random() * 500) + 1;
+			    var url = "https://anapioficeandfire.com/api/characters/"+character_number; 
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);
+			    	var n = jsonResponse.name;
+			    	if(n!="") {
+				    	var details_tag = '<p>You searched for <b>'+n+'</b> ';
+				    	if(jsonResponse.playedBy[0]!="") details_tag += 'played by <b>'+jsonResponse.playedBy[0]+'</b>.</p>';
+				    	// details_tag += 
+				    	details_tag += '<p>His/Her various titles are - </p>';
+				    	details_tag += '<ul>';
+				    	for(i=0;i<jsonResponse.titles.length;i++) details_tag += '<li>'+jsonResponse.titles[i]+'</li>'
+				    	details_tag += '</ul>';
+				    	details_tag += '<p>Also known as - </p>';
+				    	if(jsonResponse.aliases.length!=0) {
+					    	details_tag += '<ul>';
+					    	for(i=0;i<jsonResponse.aliases.length;i++) details_tag += '<li>'+jsonResponse.aliases[i]+'</li>'
+					    	details_tag += '</ul>';
+						}
+				    	// details_tag += '<p>Allegiances - </p>';
+				    	// details_tag += '<ul>';
+				    	// for(i=0;i<jsonResponse[0].allegiances.length;i++) {
+				    	// 	var alleg = nameHelper(jsonResponse[0].allegiances[i]);
+				    	// 	console.log(alleg);
+				    	// 	details_tag += '<li>'+nameHelper(jsonResponse[0].allegiances[i])+'</li>'
+				    	// }
+				    	// details_tag += '</ul>';
+				    }
+				    else details_tag = "No information found!";
+			    	document.getElementById("disp_div").innerHTML = details_tag;
+			    	//document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function houseHelper(url) {
+				//comic_number = Math.floor(Math.random() * 500) + 1;
+				// var name = document.getElementById('search_name').value
+			    var xmlHttp = new XMLHttpRequest();
+			    // var url = "https://anapioficeandfire.com/api/characters?name="+name; 
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);
+			    	var name = jsonResponse.name;
+			    	if(name!="") {
+				    	var details_tag = '<p>You searched for <b>'+name+'</b> ';
+				    	if(jsonResponse.playedBy[0]!="") details_tag += 'played by <b>'+jsonResponse.playedBy[0]+'</b>.</p>';
+				    	details_tag += '<p>His/Her various titles are - </p>';
+				    	details_tag += '<ul>';
+				    	for(i=0;i<jsonResponse.titles.length;i++) details_tag += '<li>'+jsonResponse.titles[i]+'</li>'
+				    	details_tag += '</ul>';
+				    	details_tag += '<p>Also known as - </p>';
+				    	details_tag += '<ul>';
+				    	for(i=0;i<jsonResponse.aliases.length;i++) details_tag += '<li>'+jsonResponse.aliases[i]+'</li>'
+				    	details_tag += '</ul>';
+				    	// details_tag += '<p>Allegiances - </p>';
+				    	// details_tag += '<ul>';
+				    	// for(i=0;i<jsonResponse[0].allegiances.length;i++) {
+				    	// 	var alleg = nameHelper(jsonResponse[0].allegiances[i]);
+				    	// 	console.log(alleg);
+				    	// 	details_tag += '<li>'+nameHelper(jsonResponse[0].allegiances[i])+'</li>'
+				    	// }
+				    	// details_tag += '</ul>';
+				    }
+				    else details_tag = "No information found!";
+			    	document.getElementById("disp_div").innerHTML = details_tag;
+			    	//document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function getDetailsByHouse() {
+				//comic_number = Math.floor(Math.random() * 500) + 1;
+				var name = document.getElementById('search_house').value
+			    var xmlHttp = new XMLHttpRequest();
+			    var url = "https://anapioficeandfire.com/api/houses?name="+name; 
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);
+			    	var name = jsonResponse[0].name;
+			    	var details_tag = '<p>You searched for <b>'+name+'</b>.</p>';
+			    	details_tag += '<p>Region - '+jsonResponse[0].region+'</p>';
+			    	details_tag += '<p>Coat of Arms - '+jsonResponse[0].coatOfArms+'</p>';
+			    	details_tag += '<p>Words - '+jsonResponse[0].words+'</p>';
+			    	details_tag += '<p>Titles - </p>';
+				    details_tag += '<ul>';
+				    for(i=0;i<jsonResponse[0].titles.length;i++) details_tag += '<li>'+jsonResponse[0].titles[i]+'</li>'
+				    details_tag += '</ul>';
+					details_tag += '<p>Founded - '+jsonResponse[0].founded+'</p>';
+					details_tag += '<p>Ancestral Weapons - </p>';
+				    details_tag += '<ul>';
+				    for(i=0;i<jsonResponse[0].ancestralWeapons.length;i++) details_tag += '<li>'+jsonResponse[0].ancestralWeapons[i]+'</li>'
+				    details_tag += '</ul>';
+			    	document.getElementById("disp_div").innerHTML = details_tag;
+			    	//document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function getRandomHouse() {
+				house_number = Math.floor(Math.random() * 2000) + 1;
+				var name = document.getElementById('search_house').value
+			    var xmlHttp = new XMLHttpRequest();
+			    var url = "https://anapioficeandfire.com/api/houses/"+house_number; 
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);
+			    	var name = jsonResponse.name;
+			    	var details_tag = '<p>You searched for <b>'+name+'</b>.</p>';
+			    	details_tag += '<p>Region - '+jsonResponse.region+'</p>';
+			    	details_tag += '<p>Coat of Arms - '+jsonResponse.coatOfArms+'</p>';
+			    	details_tag += '<p>Words - '+jsonResponse.words+'</p>';
+			    	details_tag += '<p>Titles - </p>';
+				    details_tag += '<ul>';
+				    for(i=0;i<jsonResponse.titles.length;i++) details_tag += '<li>'+jsonResponse.titles[i]+'</li>'
+				    details_tag += '</ul>';
+					details_tag += '<p>Founded - '+jsonResponse.founded+'</p>';
+					details_tag += '<p>Ancestral Weapons - </p>';
+				    details_tag += '<ul>';
+				    for(i=0;i<jsonResponse.ancestralWeapons.length;i++) details_tag += '<li>'+jsonResponse.ancestralWeapons[i]+'</li>'
+				    details_tag += '</ul>';
+			    	document.getElementById("disp_div").innerHTML = details_tag;
+			    	//document.getElementById("title_div").innerHTML = title; 
+			    }
+			    xmlHttp.send(null);
+			}
+			function getDetailsByHouseName() {
+				//comic_number = Math.floor(Math.random() * 500) + 1;
+				var name = document.getElementById('search_house_name').value
+			    var xmlHttp = new XMLHttpRequest();
+			    var url = "https://anapioficeandfire.com/api/houses?name="+name; 
+			    xmlHttp.open( "GET", url , true );
+			    xmlHttp.onload = function() {
+			    	var jsonResponse = JSON.parse(xmlHttp.responseText);
+			    	var size = jsonResponse[0].swornMembers.length;
+			    	if(size>0) {
+				    	var r = Math.floor(Math.random() * size);
+				    	var name = jsonResponse[0].swornMembers[r];
+				    	houseHelper(name);
+				    }
+			    }
+			    xmlHttp.send(null);
+			}
+		</script>
+	</head>
+	<body class="bimage">
+		<div style="width: 100%;height: 10%;color: white;background-color: #000000;font-size: 25px;font-family: monospace;font-variant: small-caps;" align="center">
+			<h1>The Search of Ice and Fire</h1>
+		</div>
+		<div>
+			<div class="search_bar">
+				<input type="text" placeholder="Search for characters here.." id="search_name" style="background-color: #1a1a1a;color: #ffffff;padding: 5px;">
+	  			<button class="button" onclick="getDetailsByName()">Search Character</button>			
+			</div>
+			<div class="search_bar">
+				<input type="text" placeholder="Search for houses here.." id="search_house" style="background-color: #1a1a1a;color: #ffffff;padding: 5px;">
+	  			<button class="button" onclick="getDetailsByHouse()">Search House</button>			
+			</div>
+			<div class="search_bar">
+				<input type="text" placeholder="Search for a random character of a house here.." id="search_house_name" style="background-color: #1a1a1a;color: #ffffff;padding: 5px;">
+	  			<button class="button" onclick="getDetailsByHouseName()">Search character of a house</button>			
+			</div>
+			<div class="search_bar">
+				<!-- <p style="float: left;font-size: 25px;color:white;font-family: monospace;font-variant: small-caps;">And if you know nothing</p> -->
+				<button class="button" onclick="getRandomCharacter()" style="margin-left: 200px;">Random Character</button>			
+				<button class="button" onclick="getRandomHouse()" style="margin-left: 50px;">Random House</button>			
+			</div>
+			<div class="display_block" id="disp_div" style="color:white;background-color: #1a1a1a;padding: 5px;overflow-y: scroll;">				
+			</div>
+		</div>
+	</body>
+</html>
